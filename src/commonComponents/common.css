@@ -1,0 +1,18 @@
+.navbar{
+    background: white;
+    border-radius: 0 0 23px 23px;
+    padding: 8px 29px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    position: sticky;
+  }
+
+  .navbarItems{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+  }
