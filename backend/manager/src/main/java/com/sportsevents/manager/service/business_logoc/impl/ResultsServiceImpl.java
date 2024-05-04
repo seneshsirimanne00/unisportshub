@@ -78,12 +78,15 @@ public class ResultsServiceImpl implements ResultsService {
     }
 
     public List<String> stringToList(String strList){
-        if (StringUtils.isBlank(strList)){
+        if (!StringUtils.isBlank(strList)){
             return Arrays.asList(strList.split(","));
         }
         return null;
     }
     public void resultToResponseDTO(Results result, ResultResponseDTO resultResponseDTO){
+        System.out.println("-----------------------------------------");
+        System.out.println(result.getAchievements());
+        System.out.println(stringToList(result.getAchievements()));
         resultResponseDTO.setAchievements(stringToList(result.getAchievements()));
     }
 
