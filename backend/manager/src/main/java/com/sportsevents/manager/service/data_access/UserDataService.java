@@ -38,4 +38,6 @@ public interface UserDataService {
 
     List<User> getAllClubsPositionAscending(Long id);
 
+    User getUserByUsername(String username);
+
 }

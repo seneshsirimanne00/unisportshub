@@ -1,14 +1,13 @@
 package com.sportsevents.manager.service.business_logoc;
 
 import com.sportsevents.manager.DTO.RequestDTO.*;
-import com.sportsevents.manager.DTO.ResponseDTO.AthleteResponseDTO;
-import com.sportsevents.manager.DTO.ResponseDTO.SportClubResponseDTO;
-import com.sportsevents.manager.DTO.ResponseDTO.SportsCouncilResponseDTO;
-import com.sportsevents.manager.DTO.ResponseDTO.StudentResponseDTO;
+import com.sportsevents.manager.DTO.ResponseDTO.*;
 
 import java.util.List;
 
 public interface UserService {
+
+    SuccessResponseDTO authenticateUser(LoginRequestDTO requestDTO);
 
     StudentResponseDTO saveStudent(StudentRequestDTO requestDTO);
 

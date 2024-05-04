@@ -130,6 +130,12 @@ public class UserDataServiceImpl implements UserDataService {
         return userRepository.findAllByUserIdOrderByWinnings(id);
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        Optional<User> user = userRepository.getByUsername(username);
+        return user.orElse(null);
+    }
+
     private String convertToString(List<String> stringList){
         if (!(stringList == null || stringList.isEmpty())){
             return stringList.toString();
