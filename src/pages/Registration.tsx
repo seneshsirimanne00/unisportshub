@@ -19,7 +19,6 @@ function Resgistration() {
 
       <div className="row red-container" style={{width: "100%", height: "20vh"}}></div>
 
-
       <nav>
         <div className="nav nav-tabs" id="nav-tab" role="tablist" style={{paddingLeft: "40%", backgroundColor: "#1d1d1d"}}>
           <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" onClick={() => setCount(0)}>Student</button>

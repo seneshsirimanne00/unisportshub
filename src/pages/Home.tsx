@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../commonComponents/Navbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -11,8 +11,30 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import EventCard from '../commonComponents/EventCard';
+import {IEventCardData} from '../commonComponents/EventCard';
 
 function Home() {
+
+  // event card data
+  const [eventData, setEventData] = useState<IEventCardData[]>([
+    {
+      title: 'Event 1 Title',
+      description: 'This is a description for event 1.',
+      date: '2024-10-26',
+    },
+    {
+      title: 'Event 2 Title',
+      description: 'This is a description for event 2.',
+      date: '2024-10-27',
+    },
+    {
+      title: 'Event 3 Title',
+      description: 'This is a description for event 3.',
+      date: '2024-10-28',
+    },
+  ]);
+  
   return (
     <div className='app-container'>
       <Navbar />
@@ -46,22 +68,12 @@ function Home() {
 
             <button className="button2">View all events</button>
             <br/>
-            <div className="card">
-                <h3 className="card__title">Title
-                </h3>
-                <p className="card__content">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-                <div className="card__date">
-                    April 15, 2022
-                </div>
-                <div className="card__arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
-                        <path fill="#fff" d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"></path>
-                    </svg>
-                </div>
-            </div>
-            </div>
-            <div className="col-lg-4 col-md-6 col-sm-12">
+            {eventData.map((cardData) => (
+              <EventCard key={cardData.title} title={cardData.title} description={cardData.description} date={cardData.date} />
+            ))}
+          </div>
 
+          <div className="col-lg-4 col-md-6 col-sm-12">
             <h3>Recent Perfomance </h3>
 
             <div className="card-g">
@@ -75,7 +87,7 @@ function Home() {
                 </div>
               </a>
             </div>
-            </div>
+          </div>
 
         </div>
       </div>
@@ -154,16 +166,6 @@ function Home() {
                       </div>
                     </div>
                   </div>
-            
-
-            
-            
-            
-            
-            
-            
-            
-            
             
             </div>
           </div>
