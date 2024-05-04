@@ -181,7 +181,7 @@ public class UserServiceImpl implements UserService {
 
 
     public List<String> stringToList(String strList){
-        if (StringUtils.isBlank(strList)){
+        if (!StringUtils.isBlank(strList)){
             return Arrays.asList(strList.split(","));
         }
         return null;
