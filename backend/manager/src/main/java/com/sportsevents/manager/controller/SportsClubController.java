@@ -3,6 +3,7 @@ package com.sportsevents.manager.controller;
 import com.sportsevents.manager.DTO.RequestDTO.GetTopPerformingRequestDTO;
 import com.sportsevents.manager.DTO.RequestDTO.SportsClubRequestDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.SportClubResponseDTO;
+import com.sportsevents.manager.Helper.AccessManagements;
 import com.sportsevents.manager.service.business_logoc.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,13 +27,21 @@ public class SportsClubController {
 //    }
 
     @PostMapping
-    public ResponseEntity<SportClubResponseDTO> saveSportsClub(@RequestBody SportsClubRequestDTO requestDTO){
-        return new ResponseEntity<>(userService.saveSportsClub(requestDTO), HttpStatus.OK);
+    public ResponseEntity<SportClubResponseDTO> saveSportsClub(@RequestHeader(USER_ID) Long userId,
+                                                               @RequestBody SportsClubRequestDTO requestDTO){
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ONLY_ADMIN)) {
+            return new ResponseEntity<>(userService.saveSportsClub(requestDTO), HttpStatus.OK);
+        }
+        return null;
     }
 
     @PutMapping
-    public ResponseEntity<SportClubResponseDTO> updateSportsCLub(@RequestBody SportsClubRequestDTO requestDTO){
-        return new ResponseEntity<>(userService.updateSportsClub(requestDTO, requestDTO.getId()), HttpStatus.OK);
+    public ResponseEntity<SportClubResponseDTO> updateSportsCLub(@RequestHeader(USER_ID) Long userId,
+                                                                 @RequestBody SportsClubRequestDTO requestDTO){
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ONLY_CLUB)) {
+            return new ResponseEntity<>(userService.updateSportsClub(requestDTO, requestDTO.getId()), HttpStatus.OK);
+        }
+        return null;
     }
 
     @GetMapping("/{id}")
@@ -50,4 +59,9 @@ public class SportsClubController {
         requestDTO.setUserId(SPORTS_CLUB_CODE);
         return new ResponseEntity<>(userService.getTopPerformingTeams(requestDTO), HttpStatus.OK);
     }
+
+    /*
+    * update events
+    * create athletes
+    * */
 }

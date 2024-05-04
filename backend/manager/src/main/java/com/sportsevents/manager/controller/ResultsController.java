@@ -3,6 +3,7 @@ package com.sportsevents.manager.controller;
 import com.sportsevents.manager.DTO.RequestDTO.GetResultsBySportsClubAndSportRequestDTO;
 import com.sportsevents.manager.DTO.RequestDTO.ResultRequestDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.ResultResponseDTO;
+import com.sportsevents.manager.Helper.AccessManagements;
 import com.sportsevents.manager.service.business_logoc.ResultsService;
 
 import com.sportsevents.manager.service.business_logoc.UserService;
@@ -14,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.sportsevents.manager.Constants.Constants.CRICKET;
-import static com.sportsevents.manager.Constants.Constants.USER_ID;
+import static com.sportsevents.manager.Constants.Constants.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,11 +31,22 @@ public class ResultsController {
 //        this.resultsService = resultsService;
 //    }
 
-    @PostMapping("create")
-    public ResponseEntity<ResultResponseDTO> createResult(@RequestHeader(USER_ID) String userId,
+    @PostMapping
+    public ResponseEntity<ResultResponseDTO> createResult(@RequestHeader(USER_ID) Long userId,
                                                           @RequestBody ResultRequestDTO requestDTO){
-        //todo: need to add validation
-        return new ResponseEntity<>(resultsService.createResult(requestDTO), HttpStatus.OK);
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ONLY_ADMIN)) {
+            return new ResponseEntity<>(resultsService.createResult(requestDTO), HttpStatus.OK);
+        }
+        return null;
+    }
+
+    @PutMapping
+    public ResponseEntity<ResultResponseDTO> updateResult(@RequestHeader(USER_ID) Long userId,
+                                                          @RequestBody ResultRequestDTO requestDTO){
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ONLY_ADMIN)) {
+            return new ResponseEntity<>(resultsService.updateEvent(requestDTO, requestDTO.getId()), HttpStatus.OK);
+        }
+        return null;
     }
 
     //todo: need update

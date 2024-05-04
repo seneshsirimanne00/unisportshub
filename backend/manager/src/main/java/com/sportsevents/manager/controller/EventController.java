@@ -6,9 +6,11 @@ import com.sportsevents.manager.DTO.RequestDTO.GetAllEventsByDate;
 import com.sportsevents.manager.DTO.RequestDTO.GetAllEventsBySportClubAndIsFinished;
 import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenAndEventTypeRequestDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.EventResponseDTO;
+import com.sportsevents.manager.Helper.AccessManagements;
 import com.sportsevents.manager.service.business_logoc.EventService;
 import com.sportsevents.manager.service.business_logoc.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Helper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,15 +37,20 @@ public class EventController {
     @PostMapping
     public ResponseEntity<EventResponseDTO> createEvent(@RequestHeader(USER_ID) Long userId,
                                                         @RequestBody EventRequestDTO requestDTO){
-        //todo: validation
-        return new ResponseEntity<>(eventService.createEvent(requestDTO), HttpStatus.OK);
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ONLY_ADMIN)){
+            return new ResponseEntity<>(eventService.createEvent(requestDTO), HttpStatus.OK);
+        }
+        return null;
+
     }
 
     @PutMapping
     public ResponseEntity<EventResponseDTO> updateEvent(@RequestHeader(USER_ID) Long userId,
                                                         @RequestBody EventRequestDTO requestDTO){
-        //todo: validation
-        return new ResponseEntity<>(eventService.updateEvent(requestDTO, requestDTO.getId()), HttpStatus.OK);
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ADMIN_CLUB)) {
+            return new ResponseEntity<>(eventService.updateEvent(requestDTO, requestDTO.getId()), HttpStatus.OK);
+        }
+        return null;
     }
 
     @GetMapping("/{id}")

@@ -5,6 +5,7 @@ import com.sportsevents.manager.DTO.RequestDTO.GetTopPerformingRequestDTO;
 import com.sportsevents.manager.DTO.RequestDTO.SportsClubRequestDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.AthleteResponseDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.SportClubResponseDTO;
+import com.sportsevents.manager.Helper.AccessManagements;
 import com.sportsevents.manager.service.business_logoc.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,16 @@ public class AthleteController {
 //    }
 
     @PostMapping
-    public ResponseEntity<AthleteResponseDTO> saveSportsClub(@RequestBody AthleteRequestDTO requestDTO){
-        return new ResponseEntity<>(userService.saveAthlete(requestDTO), HttpStatus.OK);
+    public ResponseEntity<AthleteResponseDTO> saveAthlete(@RequestHeader(USER_ID) Long userId,
+                                                          @RequestBody AthleteRequestDTO requestDTO){
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ONLY_CLUB)) {
+            return new ResponseEntity<>(userService.saveAthlete(requestDTO), HttpStatus.OK);
+        }
+        return null;
     }
 
     @PutMapping
-    public ResponseEntity<AthleteResponseDTO> updateSportsCLub(
-                                                                 @RequestBody AthleteRequestDTO requestDTO){
+    public ResponseEntity<AthleteResponseDTO> updateAthlete(@RequestBody AthleteRequestDTO requestDTO){
         return new ResponseEntity<>(userService.updateAthlete(requestDTO, requestDTO.getId()), HttpStatus.OK);
     }
 
