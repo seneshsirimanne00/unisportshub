@@ -17,6 +17,7 @@ import static com.sportsevents.manager.Constants.Constants.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("sports-club")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SportsClubController {
 
     private final UserService userService;

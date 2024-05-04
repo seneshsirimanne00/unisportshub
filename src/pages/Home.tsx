@@ -82,9 +82,9 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get('/translate');
+        const response = await axiosInstance.get('/event');
         const translatedData = response.data; // Assuming an array of event objects
-  
+        console.log("event",translatedData)
         // Convert translated data to IEventCardData objects
         const eventCardData = translatedData.map((event: { eventDate: string | number | Date; id: any; name: any; description: any; }) => {
           const eventDate = new Date(event.eventDate); // Assuming eventDate is a string

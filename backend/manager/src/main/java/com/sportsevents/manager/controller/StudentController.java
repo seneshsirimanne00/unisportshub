@@ -13,6 +13,7 @@ import static com.sportsevents.manager.Constants.Constants.USER_ID;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("student")
 public class StudentController {
 
