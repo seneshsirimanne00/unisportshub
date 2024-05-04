@@ -13,6 +13,9 @@ import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import EventCard from '../commonComponents/EventCard';
 import {IEventCardData} from '../commonComponents/EventCard';
+import RPerformanceCard from '../commonComponents/RecentPerformanceCard';
+import {IRPerformanceCardData} from '../commonComponents/RecentPerformanceCard';
+import TeamCard, { ITeamCardData } from '../commonComponents/TeamCard';
 
 function Home() {
 
@@ -32,6 +35,46 @@ function Home() {
       title: 'Event 3 Title',
       description: 'This is a description for event 3.',
       date: '2024-10-28',
+    },
+  ]);
+
+  // event card data
+  const [rPerformanceCardData, setRperformanceCard] = useState<IRPerformanceCardData[]>([
+    {
+      title: '1 Title',
+      description: 'This is a description for event 1.',
+    },
+    {
+      title: '2 Title',
+      description: 'This is a description for event 2.',
+    },
+    {
+      title: '3 Title',
+      description: 'This is a description for event 3.',
+    },
+  ]);
+
+  const [teamCard, setTeamCard] = useState<ITeamCardData[]>([
+    {
+      name: 'Team 1 Name',
+      username: 'team1username',
+      winnings: 10,
+      loses: 5,
+      players: 5,
+    },
+    {
+      name: 'Team 2 Name',
+      username: 'team2username',
+      winnings: 8,
+      loses: 7,
+      players: 6,
+    },
+    {
+      name: 'Team 3 Name',
+      username: 'team3username',
+      winnings: 12,
+      loses: 2,
+      players: 7,
     },
   ]);
   
@@ -76,19 +119,11 @@ function Home() {
           <div className="col-lg-4 col-md-6 col-sm-12">
             <h3>Recent Perfomance </h3>
 
-            <div className="card-g">
-                <a className="card1" href="#">
-                <p>This is heading</p>
-                <p className="small">Card description with lots of great facts and interesting details.</p>
-                <div className="go-corner" >
-                  <div className="go-arrow">
-                    →
-                  </div>
-                </div>
-              </a>
-            </div>
+            {rPerformanceCardData.map((cardData) => (
+              <RPerformanceCard key={cardData.title} title={cardData.title} description={cardData.description} />
+            ))}
           </div>
-
+          
         </div>
       </div>
 
@@ -185,22 +220,10 @@ function Home() {
 
         <div className="col">
         <a href="profile-team.html" style={{textDecoration: "none"}}>
-            <div className="team-card">
-              <div className="team-card-info">
-              <div className="team-card-avatar"></div>
-              <div className="team-card-title">Steve Jobs</div>
-              <div className="team-card-subtitle">CEO &amp; Co-Founder</div>
-              </div>
-              <ul className="team-card-social">
-              <li className="team-card-social__item">
-            wins = <b>2</b></li>
-            <li className="team-card-social__item">
-            Losses = <b>5</b></li>
-          <li className="team-card-social__item">
-          Played = <b>8</b>
-          </li>
-        </ul>
-        </div>  </a>
+        {teamCard.map((cardData) => (
+              <TeamCard key={cardData.name} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.loses} players={cardData.players} />
+            ))}
+        </a>
             
         </div>
       </div>
