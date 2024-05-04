@@ -8,6 +8,7 @@ import com.sportsevents.manager.Mapper.ResultsMapper;
 import com.sportsevents.manager.service.business_logoc.ResultsService;
 import com.sportsevents.manager.service.data_access.ResultsDataService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -77,7 +78,10 @@ public class ResultsServiceImpl implements ResultsService {
     }
 
     public List<String> stringToList(String strList){
-        return Arrays.asList(strList.split(","));
+        if (StringUtils.isBlank(strList)){
+            return Arrays.asList(strList.split(","));
+        }
+        return null;
     }
     public void resultToResponseDTO(Results result, ResultResponseDTO resultResponseDTO){
         resultResponseDTO.setAchievements(stringToList(result.getAchievements()));

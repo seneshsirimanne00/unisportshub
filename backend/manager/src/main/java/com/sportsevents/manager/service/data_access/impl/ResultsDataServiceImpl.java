@@ -11,10 +11,8 @@ import com.sportsevents.manager.service.data_access.ResultsDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static com.sportsevents.manager.Constants.Constants.CRICKET;
 
@@ -29,7 +27,7 @@ public class ResultsDataServiceImpl implements ResultsDataService {
     @Override
     public Results createResults(ResultRequestDTO requestDTO) {
         Results results = ResultsMapper.INSTANCE.resultsRequestDtoToEntity(requestDTO);
-        results.setAchievements(requestDTO.getAchievements().toString());
+        results.setAchievements(convertToString(requestDTO.getAchievements()));
         results.setSportId(CRICKET);
         return resultsRepository.save(results);
     }
@@ -45,7 +43,7 @@ public class ResultsDataServiceImpl implements ResultsDataService {
 
     @Override
     public List<Results> getBySportId(Long id) {
-        return resultsRepository.findAllBySportIdOrderById(id);
+        return resultsRepository.findAllBySportIdOrderByIdDesc(id);
     }
 
     @Override
@@ -71,11 +69,18 @@ public class ResultsDataServiceImpl implements ResultsDataService {
         Optional<Results> result = resultsRepository.findById(id);
         if (result.isPresent()){
             ResultsMapper.INSTANCE.updateResultsEntity(requestDTO, result.get());
-            List<String> currentAchievements = Arrays.asList(result.get().getAchievements().split(","));
-            result.get().setAchievements((Stream.concat(currentAchievements.stream(), requestDTO.getAchievements().stream()).toList()).toString());
+//            List<String> currentAchievements = Arrays.asList(result.get().getAchievements().split(","));
+            result.get().setAchievements(convertToString(requestDTO.getAchievements()));
             return resultsRepository.save(result.get());
         }else {
             return null;
         }
+    }
+
+    private String convertToString(List<String> stringList){
+        if (!(stringList == null || stringList.isEmpty())){
+            return stringList.toString();
+        }
+        return null;
     }
 }

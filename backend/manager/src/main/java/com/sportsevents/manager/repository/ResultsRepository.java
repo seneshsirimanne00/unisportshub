@@ -15,7 +15,7 @@ public interface ResultsRepository extends JpaRepository<Results, Long>{
 //    List<Results> findAllByTeamAAndTeamBAndSportTypeId(User teamA, User TeamB, Long sportTypeId);
     List<Results> findAllByTeamAIdAndTeamBIdAndSportId(Long teamAId, Long teamBId, Long sportID);
 
-    List<Results> findAllBySportIdOrderById(Long sportId);
+    List<Results> findAllBySportIdOrderByIdDesc(Long sportId);
 
     Optional<Results> findByEventId(Long eventId);
 

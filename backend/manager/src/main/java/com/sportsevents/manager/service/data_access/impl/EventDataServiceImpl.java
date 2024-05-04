@@ -1,9 +1,6 @@
 package com.sportsevents.manager.service.data_access.impl;
 
-import com.sportsevents.manager.DTO.RequestDTO.EventRequestDTO;
-import com.sportsevents.manager.DTO.RequestDTO.GetAllEventsBySportClubAndIsFinished;
-import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenAndEventTypeRequestDTO;
-import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenRequestDTO;
+import com.sportsevents.manager.DTO.RequestDTO.*;
 import com.sportsevents.manager.Entity.Event;
 import com.sportsevents.manager.Mapper.EventMapper;
 import com.sportsevents.manager.repository.EventRepository;
@@ -23,10 +20,10 @@ public class EventDataServiceImpl implements EventDataService{
     @Override
     public Event createEvent(EventRequestDTO requestDTO) {
         Event event = EventMapper.INSTANCE.eventRequestDtoToEntity(requestDTO);
-        event.setEligibilityDetails(requestDTO.getEligibilityDetails().toString());
-        event.setParticipationGuidelines(requestDTO.getParticipationGuidelines().toString());
-        event.setRegistrationProcedure(requestDTO.getRegistrationProcedure().toString());
-        event.setPlayers(requestDTO.getPlayersIdList().toString());
+        event.setEligibilityDetails(convertToString(requestDTO.getEligibilityDetails()));
+        event.setParticipationGuidelines(convertToString(requestDTO.getParticipationGuidelines()));
+        event.setRegistrationProcedure(convertToString(requestDTO.getRegistrationProcedure()));
+        event.setPlayers(convertLongToString(requestDTO.getPlayersIdList()));
         return eventRepository.save(event);
     }
 
@@ -38,20 +35,29 @@ public class EventDataServiceImpl implements EventDataService{
 
     @Override
     public List<Event> getALl() {
-        return eventRepository.findAll();
+        return eventRepository.findByOrderByEventDateDesc();
     }
 
     @Override
     public List<Event> getByEventId(Long id) {
-        return eventRepository.findAllByEventIdOrderByEventDate(id);
+        return eventRepository.findAllByEventIdOrderByEventDateDesc(id);
     }
+
+    @Override
+    public List<Event> getAllByEventDate(GetAllEventsByDate requestDTO) {
+        return eventRepository.findAllByEventDate(requestDTO.getEventDate());
+    }
+
 
     @Override
     public Event updateEvent(EventRequestDTO requestDTO, Long id) {
         Optional<Event> event = eventRepository.findById(id);
         if (event.isPresent()){
             EventMapper.INSTANCE.updateEventEntity(requestDTO, event.get());
-            event.get().setPlayers(requestDTO.getPlayersIdList().toString());
+            event.get().setEligibilityDetails(convertToString(requestDTO.getEligibilityDetails()));
+            event.get().setParticipationGuidelines(convertToString(requestDTO.getParticipationGuidelines()));
+            event.get().setRegistrationProcedure(convertToString(requestDTO.getRegistrationProcedure()));
+            event.get().setPlayers(convertLongToString(requestDTO.getPlayersIdList()));
             return eventRepository.save(event.get());
         }else {
             return null;
@@ -65,7 +71,7 @@ public class EventDataServiceImpl implements EventDataService{
 
     @Override
     public List<Event> getByEventDateBetween(GetEventDateBetweenRequestDTO requestDTO) {
-        return eventRepository.findAllByEventDateBetweenOrderByEventDate(requestDTO.getStartDate(), requestDTO.getEndDate());
+        return eventRepository.findAllByEventDateBetweenOrderByEventDateDesc(requestDTO.getStartDate(), requestDTO.getEndDate());
     }
 
     @Override
@@ -85,6 +91,20 @@ public class EventDataServiceImpl implements EventDataService{
 //        List<Event> eventsTeamB = eventRepository.findAllByTeamBAndIsFinished(requestDTO.getSportLClubId(), requestDTO.getIsFinished());
 //        return eventsTeamA;
         return eventRepository.findAllByTeamAAndTeamBAndIsFinished(requestDTO.getSportLClubId(), requestDTO.getSportLClubId(), requestDTO.getIsFinished());
+    }
+
+    private String convertToString(List<String> stringList){
+        if (!(stringList == null || stringList.isEmpty())){
+            return stringList.toString();
+        }
+        return null;
+    }
+
+    private String convertLongToString(List<Long> longList){
+        if (!longList.isEmpty()){
+            return longList.toString();
+        }
+        return null;
     }
 
 

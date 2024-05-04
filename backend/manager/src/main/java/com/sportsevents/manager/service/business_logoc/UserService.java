@@ -1,14 +1,13 @@
 package com.sportsevents.manager.service.business_logoc;
 
 import com.sportsevents.manager.DTO.RequestDTO.*;
-import com.sportsevents.manager.DTO.ResponseDTO.AthleteResponseDTO;
-import com.sportsevents.manager.DTO.ResponseDTO.SportClubResponseDTO;
-import com.sportsevents.manager.DTO.ResponseDTO.SportsCouncilResponseDTO;
-import com.sportsevents.manager.DTO.ResponseDTO.StudentResponseDTO;
+import com.sportsevents.manager.DTO.ResponseDTO.*;
 
 import java.util.List;
 
 public interface UserService {
+
+    SuccessResponseDTO authenticateUser(LoginRequestDTO requestDTO);
 
     StudentResponseDTO saveStudent(StudentRequestDTO requestDTO);
 
@@ -42,7 +41,8 @@ public interface UserService {
 
     StudentResponseDTO updateStudent(StudentRequestDTO requestDTO, Long id);
 
-    List<AthleteResponseDTO> getTopPerformingTeams(GetTopPerforming getTopPerforming);
+    List<AthleteResponseDTO> getTopPerformingAthletes(GetTopPerformingRequestDTO getTopPerformingRequestDTO);
+    List<SportClubResponseDTO> getTopPerformingTeams(GetTopPerformingRequestDTO getTopPerformingRequestDTO);
 
     List<SportClubResponseDTO> getAllPositionAscending(Long id);
 
