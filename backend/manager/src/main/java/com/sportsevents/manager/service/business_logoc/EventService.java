@@ -1,10 +1,8 @@
 package com.sportsevents.manager.service.business_logoc;
 
-import com.sportsevents.manager.DTO.RequestDTO.EventRequestDTO;
-import com.sportsevents.manager.DTO.RequestDTO.GetAllEventsBySportClubAndIsFinished;
-import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenAndEventTypeRequestDTO;
-import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenRequestDTO;
+import com.sportsevents.manager.DTO.RequestDTO.*;
 import com.sportsevents.manager.DTO.ResponseDTO.EventResponseDTO;
+import com.sportsevents.manager.Entity.Event;
 
 import java.util.List;
 
@@ -14,7 +12,9 @@ public interface EventService {
 
     EventResponseDTO getById(Long id); //done
 
-    List<EventResponseDTO> getALl(); //no need to implement
+    List<EventResponseDTO> getALl(); //done
+
+    List<EventResponseDTO> getAllByEventDate(GetAllEventsByDate requestDTO);
 
     List<EventResponseDTO> getAllByEventId(Long id); //done
 

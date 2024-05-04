@@ -2,6 +2,7 @@ package com.sportsevents.manager.controller;
 
 import com.sportsevents.manager.Constants.Constants;
 import com.sportsevents.manager.DTO.RequestDTO.EventRequestDTO;
+import com.sportsevents.manager.DTO.RequestDTO.GetAllEventsByDate;
 import com.sportsevents.manager.DTO.RequestDTO.GetAllEventsBySportClubAndIsFinished;
 import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenAndEventTypeRequestDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.EventResponseDTO;
@@ -21,7 +22,7 @@ import static com.sportsevents.manager.Constants.Constants.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("branch")
+@RequestMapping("event")
 public class EventController {
 
     private final EventService eventService;
@@ -51,13 +52,28 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EventResponseDTO>> getAll(){
-        return new ResponseEntity<>(eventService.getAllByEventId(CRICKET), HttpStatus.OK);
+    public ResponseEntity<List<EventResponseDTO>> getAll(){ //get all events ordered by event date
+        return new ResponseEntity<>(eventService.getALl(), HttpStatus.OK);
+    }
+
+    @GetMapping("friendly-matches")
+    public ResponseEntity<List<EventResponseDTO>> getAllFriendlyMatches(){ //get all events ordered by event date
+        return new ResponseEntity<>(eventService.getAllByEventId(FRIENDLY_MATCH), HttpStatus.OK);
+    }
+
+    @GetMapping("tournament/")
+    public ResponseEntity<List<EventResponseDTO>> getAllTournaments(){ //get all events ordered by event date
+        return new ResponseEntity<>(eventService.getAllByEventId(TOURNAMENT), HttpStatus.OK);
     }
 
     @PostMapping("/between-dates")
     public ResponseEntity<List<EventResponseDTO>> getAllBetweenDates(@RequestBody GetEventDateBetweenAndEventTypeRequestDTO requestDTO){
         return new ResponseEntity<>(eventService.getByEventDateBetweenAndEventType(requestDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/by-date")
+    public ResponseEntity<List<EventResponseDTO>> getAllByDates(@RequestBody GetAllEventsByDate requestDTO){
+        return new ResponseEntity<>(eventService.getAllByEventDate(requestDTO), HttpStatus.OK);
     }
 
     @PostMapping("/is-finished/{isFinished}")

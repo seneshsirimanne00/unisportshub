@@ -1,6 +1,5 @@
 package com.sportsevents.manager.service.data_access.impl;
 
-import com.sportsevents.manager.Constants.Constants;
 import com.sportsevents.manager.DTO.RequestDTO.*;
 import com.sportsevents.manager.Entity.User;
 import com.sportsevents.manager.Mapper.UserMapper;
@@ -30,7 +29,7 @@ public class UserDataServiceImpl implements UserDataService {
     @Override
     public User saveSportsClub(SportsClubRequestDTO requestDTO) {
         User user = UserMapper.INSTANCE.sportsClubRequestDtoToUser(requestDTO);
-        user.setAchievements(requestDTO.getAchievements().toString());
+        user.setAchievements(convertToString(requestDTO.getAchievements()));
         return userRepository.save(user);
     }
 
@@ -42,7 +41,7 @@ public class UserDataServiceImpl implements UserDataService {
     @Override
     public User saveAthlete(AthleteRequestDTO requestDTO) {
         User user = UserMapper.INSTANCE.athleteRequestDtoToUser(requestDTO);
-        user.setAchievements(requestDTO.getAchievements().toString());
+        user.setAchievements(convertToString(requestDTO.getAchievements()));
         return userRepository.save(user);
     }
 
@@ -77,8 +76,8 @@ public class UserDataServiceImpl implements UserDataService {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()){
             UserMapper.INSTANCE.updateSportsClub(requestDTO, user.get());
-            List<String> currentAchievements = Arrays.asList(user.get().getAchievements().split(","));
-            user.get().setAchievements((Stream.concat(currentAchievements.stream(), requestDTO.getAchievements().stream()).toList()).toString());
+//            List<String> currentAchievements = Arrays.asList(user.get().getAchievements().split(","));
+            user.get().setAchievements(convertToString(requestDTO.getAchievements()));
             return userRepository.save(user.get());
         }
         return null;
@@ -99,8 +98,8 @@ public class UserDataServiceImpl implements UserDataService {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()){
             UserMapper.INSTANCE.updateAthlete(requestDTO, user.get());
-            List<String> currentAchievements = Arrays.asList(user.get().getAchievements().split(","));
-            user.get().setAchievements((Stream.concat(currentAchievements.stream(), requestDTO.getAchievements().stream()).toList()).toString());
+//            List<String> currentAchievements = Arrays.asList(user.get().getAchievements().split(","));
+            user.get().setAchievements(convertToString(requestDTO.getAchievements()));
             return userRepository.save(user.get());
         }
         return null;
@@ -117,13 +116,25 @@ public class UserDataServiceImpl implements UserDataService {
     }
 
     @Override
-    public List<User> getTopPerformingTeams(GetTopPerforming getTopPerforming) {
-        return userRepository.findAllByUserIdAndPositionBetween(getTopPerforming.getUserId(), getTopPerforming.getStart(), getTopPerforming.getEnd());
+    public List<User> getTopPerformingAthletes(GetTopPerformingRequestDTO getTopPerformingRequestDTO) {
+        return userRepository.findAllByUserIdAndPositionBetween(getTopPerformingRequestDTO.getUserId(), getTopPerformingRequestDTO.getStart(), getTopPerformingRequestDTO.getEnd());
+    }
+
+    @Override
+    public List<User> getTopPerformingTeams(GetTopPerformingRequestDTO getTopPerformingRequestDTO) {
+        return userRepository.findAllByUserIdAndWinningsBetween(getTopPerformingRequestDTO.getUserId(), getTopPerformingRequestDTO.getStart(), getTopPerformingRequestDTO.getEnd());
     }
 
     @Override
     public List<User> getAllClubsPositionAscending(Long id) {
         return userRepository.findAllByUserIdOrderByWinnings(id);
+    }
+
+    private String convertToString(List<String> stringList){
+        if (!(stringList == null || stringList.isEmpty())){
+            return stringList.toString();
+        }
+        return null;
     }
 
 

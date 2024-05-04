@@ -33,7 +33,8 @@ public interface UserDataService {
 
     User updateStudent(StudentRequestDTO requestDTO, Long id);
 
-    List<User> getTopPerformingTeams(GetTopPerforming getTopPerforming);
+    List<User> getTopPerformingAthletes(GetTopPerformingRequestDTO getTopPerformingRequestDTO);
+    List<User> getTopPerformingTeams(GetTopPerformingRequestDTO getTopPerformingRequestDTO);
 
     List<User> getAllClubsPositionAscending(Long id);
 

@@ -14,6 +14,9 @@ public class Constants {
     public static final Long STUDENT_CODE = 4L;
     public static final Long ATHLETE_CODE = 5L;
     public static final String IS_FINISHED = "isFinished";
+    public static final Long TOURNAMENT = 8L;
+    public static final Long FRIENDLY_MATCH = 9L;
+
 //    public static final String IS_FINISHED = "isFinished";
 //    public static final Long CRICKET = 1L;
 

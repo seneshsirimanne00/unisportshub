@@ -42,7 +42,8 @@ public interface UserService {
 
     StudentResponseDTO updateStudent(StudentRequestDTO requestDTO, Long id);
 
-    List<AthleteResponseDTO> getTopPerformingTeams(GetTopPerforming getTopPerforming);
+    List<AthleteResponseDTO> getTopPerformingAthletes(GetTopPerformingRequestDTO getTopPerformingRequestDTO);
+    List<SportClubResponseDTO> getTopPerformingTeams(GetTopPerformingRequestDTO getTopPerformingRequestDTO);
 
     List<SportClubResponseDTO> getAllPositionAscending(Long id);
 

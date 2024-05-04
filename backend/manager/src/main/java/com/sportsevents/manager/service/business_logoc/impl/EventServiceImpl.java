@@ -1,9 +1,6 @@
 package com.sportsevents.manager.service.business_logoc.impl;
 
-import com.sportsevents.manager.DTO.RequestDTO.EventRequestDTO;
-import com.sportsevents.manager.DTO.RequestDTO.GetAllEventsBySportClubAndIsFinished;
-import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenAndEventTypeRequestDTO;
-import com.sportsevents.manager.DTO.RequestDTO.GetEventDateBetweenRequestDTO;
+import com.sportsevents.manager.DTO.RequestDTO.*;
 import com.sportsevents.manager.DTO.ResponseDTO.EventResponseDTO;
 import com.sportsevents.manager.Entity.Event;
 import com.sportsevents.manager.Mapper.EventMapper;
@@ -12,6 +9,7 @@ import com.sportsevents.manager.service.data_access.EventDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +48,18 @@ public class EventServiceImpl implements EventService {
         }
         return null;
     }
+
+    @Override
+    public List<EventResponseDTO> getAllByEventDate(GetAllEventsByDate requestDTO) {
+        List<Event> events = eventDataService.getAllByEventDate(requestDTO);
+        if (!events.isEmpty()){
+            List<EventResponseDTO> eventResponseDTOS = events.stream().map(EventMapper.INSTANCE::eventToEventResponseDTO).toList();
+            eventListToResponseDTOList(events, eventResponseDTOS);
+            return eventResponseDTOS;
+        }
+        return null;
+    }
+
 
     @Override
     public List<EventResponseDTO> getAllByEventId(Long id) {
@@ -126,13 +136,19 @@ public class EventServiceImpl implements EventService {
     }
 
     public List<String> stringToList(String strList){
-        return Arrays.asList(strList.split(","));
+        if (StringUtils.isBlank(strList)){
+            return Arrays.asList(strList.split(","));
+        }
+        return null;
     }
 
     public List<Long> stringToLong(String strList){
-        return Arrays.stream(strList.split(","))
-                .map(Long::parseLong)
-                .collect(Collectors.toList());
+        if (!StringUtils.isBlank(strList)){
+            return Arrays.stream(strList.split(","))
+                    .map(Long::parseLong)
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
     public void eventToResponseDTO(Event event, EventResponseDTO eventResponseDTO){

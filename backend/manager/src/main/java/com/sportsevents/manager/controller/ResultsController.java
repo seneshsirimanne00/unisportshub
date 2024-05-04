@@ -58,7 +58,7 @@ public class ResultsController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ResultResponseDTO>> getAll(){
+    public ResponseEntity<List<ResultResponseDTO>> getAll(){ //ordered by id
         return new ResponseEntity<>(resultsService.getAllBySportType(CRICKET), HttpStatus.OK);
     }
 

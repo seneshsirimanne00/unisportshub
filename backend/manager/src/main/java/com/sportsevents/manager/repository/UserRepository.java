@@ -14,6 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByIdAndUserId(Long id, Long userId);
 
     List<User> findAllByUserIdAndPositionBetween(Long userId, Long startPosition, Long endPosition);
+    List<User> findAllByUserIdAndWinningsBetween(Long userId, Long startPosition, Long endPosition);
     List<User> findAllByUserIdOrderByWinnings(Long userId);
 
 }
