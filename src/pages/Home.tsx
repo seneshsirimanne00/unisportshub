@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../commonComponents/Navbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -16,6 +16,7 @@ import {IEventCardData} from '../commonComponents/EventCard';
 import RPerformanceCard from '../commonComponents/RecentPerformanceCard';
 import {IRPerformanceCardData} from '../commonComponents/RecentPerformanceCard';
 import TeamCard, { ITeamCardData } from '../commonComponents/TeamCard';
+import axiosInstance from '../services/AxiosController';
 
 function Home() {
 
@@ -77,6 +78,33 @@ function Home() {
       players: 7,
     },
   ]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get('/translate');
+        const translatedData = response.data; // Assuming an array of event objects
+  
+        // Convert translated data to IEventCardData objects
+        const eventCardData = translatedData.map((event: { eventDate: string | number | Date; id: any; name: any; description: any; }) => {
+          const eventDate = new Date(event.eventDate); // Assuming eventDate is a string
+          return {
+            id: event.id,
+            name: event.name,
+            description: event.description,
+            date: eventDate,
+          };
+        });
+        
+        setEventData(eventCardData);
+      } catch (error) {
+        console.error('Error fetching event data:', error);
+        // Handle errors appropriately
+      }
+    };
+  
+    fetchData();
+  }, []);
   
   return (
     <div className='app-container'>
