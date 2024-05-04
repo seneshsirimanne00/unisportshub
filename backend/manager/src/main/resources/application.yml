@@ -1,0 +1,50 @@
+spring:
+#  profiles.active: development
+  application:
+    name: sport-club-manager-service
+
+## Spring Boot Actuator
+#management:
+#  endpoints:
+#    enabled-by-default: false
+#    web:
+#      base-path: /
+#  health:
+#    defaults.enabled: false
+#  endpoint:
+#    health:
+#      enabled: true
+#      show-details: always
+
+#Data source
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    hikari:
+      schema: club-manager-service
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  servlet.context-path: /${spring.application.name}
+  error:
+    include-stacktrace: never
+  port: 8080
+
+manager:
+  sports-types:
+    cricket: 1
+  event-types:
+    tournament: 2
+    friendly-match: 3
+  user_types:
+    athlete: 4
+    student: 5
+    sports-club: 6
+    sports-council: 7
