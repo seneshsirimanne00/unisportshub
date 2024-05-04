@@ -1,15 +1,13 @@
 package com.sportsevents.manager.service.business_logoc.impl;
 
-import com.sportsevents.manager.Constants.Constants;
 import com.sportsevents.manager.DTO.RequestDTO.*;
 import com.sportsevents.manager.DTO.ResponseDTO.*;
-import com.sportsevents.manager.DTO.UserCommonResponseDTO;
-import com.sportsevents.manager.Entity.Results;
 import com.sportsevents.manager.Entity.User;
 import com.sportsevents.manager.Mapper.UserMapper;
 import com.sportsevents.manager.service.business_logoc.UserService;
 import com.sportsevents.manager.service.data_access.UserDataService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -22,6 +20,18 @@ import static com.sportsevents.manager.Constants.Constants.*;
 public class UserServiceImpl implements UserService {
 
     private final UserDataService userDataService;
+
+
+    @Override
+    public SuccessResponseDTO authenticateUser(LoginRequestDTO requestDTO) {
+        User user = userDataService.getUserByUsername(requestDTO.getUsername());
+        if (user != null){
+            if (user.getPassword().equals(requestDTO.getPassword())){
+                return new SuccessResponseDTO();
+            }
+        }
+        return null;
+    }
 
     @Override
     public StudentResponseDTO saveStudent(StudentRequestDTO requestDTO) {
@@ -137,12 +147,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<AthleteResponseDTO> getTopPerformingTeams(GetTopPerforming getTopPerforming) {
-        List<User> users = userDataService.getTopPerformingTeams(getTopPerforming);
+    public List<AthleteResponseDTO> getTopPerformingAthletes(GetTopPerformingRequestDTO getTopPerformingRequestDTO) {
+        List<User> users = userDataService.getTopPerformingAthletes(getTopPerformingRequestDTO);
         if (!users.isEmpty()){
             List<AthleteResponseDTO> athleteResponseDTO = users.stream().map(UserMapper.INSTANCE::userEntityToAthleteResDTO).toList();
             userListToAthleteResponseDTOList(users, athleteResponseDTO);
             return athleteResponseDTO;
+        }
+        return null;
+    }
+
+    @Override
+    public List<SportClubResponseDTO> getTopPerformingTeams(GetTopPerformingRequestDTO getTopPerformingRequestDTO) {
+        List<User> users = userDataService.getTopPerformingTeams(getTopPerformingRequestDTO);
+        if (!users.isEmpty()){
+            List<SportClubResponseDTO> sportClubResponseDTOS = users.stream().map(UserMapper.INSTANCE::userEntityToSportClubResDTO).toList();
+            userListToSportsClubResponseDTOList(users, sportClubResponseDTOS);
+            return sportClubResponseDTOS;
         }
         return null;
     }
@@ -160,7 +181,10 @@ public class UserServiceImpl implements UserService {
 
 
     public List<String> stringToList(String strList){
-        return Arrays.asList(strList.split(","));
+        if (StringUtils.isBlank(strList)){
+            return Arrays.asList(strList.split(","));
+        }
+        return null;
     }
 
     public void userToAthleteResponseDTO(User athlete, AthleteResponseDTO athleteResponseDTO){

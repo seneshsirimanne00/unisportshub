@@ -20,5 +20,7 @@ public class SportClubResponseDTO extends UserCommonResponseDTO {
     List<String> achievements;
     String logoBase64;
     String basicInfo;
+    Long winnings;
+    Long losses;
 
 }

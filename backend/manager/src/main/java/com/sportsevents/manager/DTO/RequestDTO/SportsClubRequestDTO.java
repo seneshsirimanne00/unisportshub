@@ -14,5 +14,7 @@ public class SportsClubRequestDTO extends UserCommonRequestDTO {
     List<String> achievements;
     String logoBase64;
     String basicInfo;
+    Long winnings;
+    Long losses;
 
 }

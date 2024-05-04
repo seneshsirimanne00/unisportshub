@@ -14,12 +14,15 @@ public interface EventRepository extends JpaRepository<Event, Long>{
     Optional<Event> findById(long id);
 
 //    List<Event> findAll();
+    List<Event> findByOrderByEventDateDesc();
 
-    List<Event> findAllByEventIdOrderByEventDate(long id);
+    List<Event> findAllByEventIdOrderByEventDateDesc(long id);
+
+    List<Event> findAllByEventDate(LocalDateTime eventDate);
 
     List<Event> findAllByEventDateBetweenAndEventId(LocalDateTime startDate, LocalDateTime endDate, Long eventId);
 
-    List<Event> findAllByEventDateBetweenOrderByEventDate(LocalDateTime startDate, LocalDateTime endDate);
+    List<Event> findAllByEventDateBetweenOrderByEventDateDesc(LocalDateTime startDate, LocalDateTime endDate);
 
     List<Event> findAllByIsFinished(Boolean isFinished);
 

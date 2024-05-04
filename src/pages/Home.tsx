@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Navbar from '../commonComponents/Navbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import image133 from '../assets/image 133.png';
-import image134 from '../assets/image 134.png';
-import image135 from '../assets/image 135.png';
+import image133 from '../assets/2570336.jpg';
+import image134 from '../assets/3148598.jpg';
+import image135 from '../assets/3164527.jpg';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -81,8 +81,6 @@ function Home() {
   return (
     <div className='app-container'>
       <Navbar />
-        
-    <div className="row red-container" style={{ width: "100%", height: "20vh" }} />
 
     <Swiper
         spaceBetween={30}
@@ -103,6 +101,11 @@ function Home() {
         <SwiperSlide  style={{ backgroundImage: `url(${image135})`}}></SwiperSlide>
 
       </Swiper>
+
+
+              
+    <div className="row red-container" style={{ width: "100%", height: "20vh" }} />
+
 
       <div className="container" style={{ padding: "40px 0", backgroundColor: "#282828" }}>
         <div className="row">
@@ -129,84 +132,74 @@ function Home() {
 
       <br/>
 
-       <div className="accordion accordion-flush" id="accordionFlushExample" style={{color: "#000 !important"}}>
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="flush-headingOne">
-            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              <h1>Sports Categories 
+
+
+      <div className="container" style={{ padding: "40px 0", backgroundColor: "#282828" }}>
+      
+   
+          
+      <h1>Sports Categories 
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" className="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
                   </svg>
 
               </h1>
-            </button>
-          </h2>
-          <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" style={{color: "#000 !important"}} data-bs-parent="#accordionFlushExample">
-            <div className="accordion-body" style={{maxHeight: "50vh" , overflowX: "auto"}}>
-            
-            
-                <div className="container " id="featured-3">
+                <div className="container sports-cat" id="featured-3">
                    
                     <div className="row g-4 py-5 row-cols-1 row-cols-lg-3" style={{color: "#000 !important"}}>
                       <div className="feature col">
                         <div className="feature-icon ">
-                            <img src="cricket.gif" style={{width: "50px"}}/>    </div>
+                    </div>
                         <h2>Cricket</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                        <p>Dive into the world of cricket where players battle it out on the pitch, swinging their bats and fielding like ninjas to outsmart their opponents and score those electrifying runs.</p>
                         <a href="#" className="icon-link button2">
-                          Call to action
+                         View info
                           <svg className="bi" width="1em" height="1em"></svg>
                         </a>
                       </div>
                       <div className="feature col">
                         <div className="feature-icon ">
-                            <img src="tennis.gif" style={{width: "50px"}}/>        </div>
+                      </div>
                         <h2>Tennis</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                        <p>Get ready to witness epic showdowns on the tennis court as players serve up a storm, smashing powerful shots and diving for impossible returns in a game where every point is a heart-pounding adventure!</p>
                         <a href="#" className="icon-link button2">
-                          Call to action
+                         View info
                           <svg className="bi" width="1em" height="1em"></svg>
                         </a>
                       </div>
                       <div className="feature col">
                         <div className="feature-icon ">
-                            <img src="football-player.gif" style={{width: "50px"}}/>      </div>
+                     </div>
                         <h2>Football</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                        <p>Brace yourself for the excitement of football, where players dazzle with their fancy footwork, rocketing shots, and dramatic goals, igniting stadiums with the roar of the crowd and keeping fans on the edge of their seats until the final whistle</p>
                         <a href="#" className="icon-link button2">
-                          Call to action
+                         View info
                           <svg className="bi" width="1em" height="1em"></svg>
                         </a>
                       </div>
 
                       <div className="feature col">
                         <div className="feature-icon ">
-                            <img src="badminton.gif" style={{width: "50px"}}/>      </div>
+                 </div>
                         <h2>Badminton</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                        <p>Experience the thrill of badminton where players unleash lightning-fast serves and execute jaw-dropping smashes, sending the shuttlecock soaring through the air in a mesmerizing display of skill and agility!</p>
                         <a href="#" className="icon-link button2">
-                          Call to action
+                         View info
                           <svg className="bi" width="1em" height="1em"></svg>
                         </a>
                       </div>
                       <div className="feature col">
                         <div className="feature-icon ">
-                            <img src="swimmer.gif" style={{width: "50px"}}/>      </div>
+                     </div>
                         <h2>Swimmer</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                        <p>Dive into the exhilarating world of swimming, where athletes glide through the water with the grace of dolphins, breaking records and pushing the limits of human endurance in a sport that combines speed, skill, and sheer determination!</p>
                         <a href="#" className="icon-link button2" >
-                          Call to action
+                         View info
                           <svg className="bi" width="1em" height="1em"></svg>
                         </a>
                       </div>
                     </div>
                   </div>
-            
-            </div>
-          </div>
-        </div>
-   
-      </div>
 
       <br/>
       <h1>Top perfomance</h1>
@@ -257,6 +250,8 @@ function Home() {
           </div>
         </div>
 
+        </div>
+
 
         <div className="row red-container" style={{width: "100%", height: "20vh"}}>
 
@@ -281,13 +276,12 @@ function Home() {
                  <div className="blog-content">
                    <a href="#">
                      <span className="blog-title">
-                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Cricket: The Heartbeat of Summer
                      </span>
                    </a>
                
                    <p className="blog-desc">
-                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-                     dolores, possimus pariatur animi temporibus nesciunt praesentium 
+                   In the heat of summer, there's one sport that captures the essence of camaraderie, strategy, and pure adrenaline: cricket. 
                    </p>
                
                    <a className="blog-action" href="blog.html">
@@ -298,6 +292,89 @@ function Home() {
                    </a>
                  </div>
                </div>
+
+               
+        </div>
+
+        
+        <div className="col-4">
+            
+            <div className="blog-card">
+                <div className="blog-image"></div>
+                 <div className="blog-content">
+                   <a href="#">
+                     <span className="blog-title">
+                     Game, Set, Match: The Timeless Allure of Tennis
+                     </span>
+                   </a>
+               
+                   <p className="blog-desc">
+                   Step into the world of tennis, where every serve is a statement, and every volley is a masterpiece.  </p>
+               
+                   <a className="blog-action" href="blog.html">
+                     Find out more
+                     <span aria-hidden="true">
+                       →
+                     </span>
+                   </a>
+                 </div>
+               </div>
+
+               
+        </div>
+
+        
+        <div className="col-4">
+            
+            <div className="blog-card">
+                <div className="blog-image"></div>
+                 <div className="blog-content">
+                   <a href="#">
+                     <span className="blog-title">
+                     Badminton: The Birdie's Flight to Glory
+                     </span>
+                   </a>
+               
+                   <p className="blog-desc">
+                   Venture into the fast-paced world of badminton, where agility meets precision in a game of finesse and speed. From the shuttlecock's graceful arc to the thunderous smashes that defy gravity, badminton is a spectacle of athleticism and skill. </p>
+               
+                   <a className="blog-action" href="blog.html">
+                     Find out more
+                     <span aria-hidden="true">
+                       →
+                     </span>
+                   </a>
+                 </div>
+               </div>
+
+               
+        </div>
+
+        
+        <div className="col-4">
+            
+            <div className="blog-card">
+                <div className="blog-image"></div>
+                 <div className="blog-content">
+                   <a href="#">
+                     <span className="blog-title">
+                     Football Fever: The Beautiful Game Unleashed
+                     </span>
+                   </a>
+               
+                   <p className="blog-desc">
+                   Enter the electric atmosphere of football, where passion knows no bounds and dreams take flight with every goal scored.   </p>
+               
+                   <a className="blog-action" href="blog.html">
+                     Find out more
+                     <span aria-hidden="true">
+                       →
+                     </span>
+                   </a>
+                 </div>
+               </div>
+
+               
         </div>
 
     </div>
@@ -313,10 +390,43 @@ function Home() {
             <div className="update-img"></div>
             <div className="update-textBox">
               <div className="update-textContent">
-                <p className="update-h1">Clans of Clash</p>
+                <p className="update-h1">Cricket IPL</p>
                 <span className="update-span">12 min ago</span>
               </div>
-              <p className="update-p">Xhattmahs is not attacking your base!</p>
+              <p className="update-p">India wins T20 series vs. Australia 2-1.</p>
+            <div>
+          </div></div></div>
+
+          <div className="update-card">
+            <div className="update-img"></div>
+            <div className="update-textBox">
+              <div className="update-textContent">
+                <p className="update-h1">Cricket IPL</p>
+                <span className="update-span">12 min ago</span>
+              </div>
+              <p className="update-p">India wins T20 series vs. Australia 2-1.</p>
+            <div>
+          </div></div></div>
+
+          <div className="update-card">
+            <div className="update-img"></div>
+            <div className="update-textBox">
+              <div className="update-textContent">
+                <p className="update-h1">Tennis</p>
+                <span className="update-span">90 min ago</span>
+              </div>
+              <p className="update-p">Serena advances to Wimbledon semis .</p>
+            <div>
+          </div></div></div>
+
+          <div className="update-card">
+            <div className="update-img"></div>
+            <div className="update-textBox">
+              <div className="update-textContent">
+                <p className="update-h1">Cricket IPL</p>
+                <span className="update-span">12 min ago</span>
+              </div>
+              <p className="update-p">India wins T20 series vs. Australia 2-1.</p>
             <div>
           </div></div></div>
 
@@ -339,7 +449,7 @@ function Home() {
         </div>
         <div className="col-lg-8">
 
-            <div className="container" style={{maxHeight: "60vh", overflowX: "auto"}}>
+            <div className="container" style={{minHeight: "50vh", maxHeight: "65vh", overflowX: "auto"}}>
                 <div className="row row-striped">
                     <div className="col-2 text-right">
                         <h1 className="display-4"><span className="badge badge-secondary">16</span></h1>

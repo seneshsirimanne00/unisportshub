@@ -1,9 +1,11 @@
 package com.sportsevents.manager.controller;
 
 import com.sportsevents.manager.DTO.RequestDTO.AthleteRequestDTO;
+import com.sportsevents.manager.DTO.RequestDTO.GetTopPerformingRequestDTO;
 import com.sportsevents.manager.DTO.RequestDTO.SportsClubRequestDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.AthleteResponseDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.SportClubResponseDTO;
+import com.sportsevents.manager.Helper.AccessManagements;
 import com.sportsevents.manager.service.business_logoc.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +30,16 @@ public class AthleteController {
 //    }
 
     @PostMapping
-    public ResponseEntity<AthleteResponseDTO> saveSportsClub(@RequestBody AthleteRequestDTO requestDTO){
-        return new ResponseEntity<>(userService.saveAthlete(requestDTO), HttpStatus.OK);
+    public ResponseEntity<AthleteResponseDTO> saveAthlete(@RequestHeader(USER_ID) Long userId,
+                                                          @RequestBody AthleteRequestDTO requestDTO){
+        if (AccessManagements.hasAccess(userId, ACCESS_LIST_ONLY_CLUB)) {
+            return new ResponseEntity<>(userService.saveAthlete(requestDTO), HttpStatus.OK);
+        }
+        return null;
     }
 
     @PutMapping
-    public ResponseEntity<AthleteResponseDTO> updateSportsCLub(
-                                                                 @RequestBody AthleteRequestDTO requestDTO){
+    public ResponseEntity<AthleteResponseDTO> updateAthlete(@RequestBody AthleteRequestDTO requestDTO){
         return new ResponseEntity<>(userService.updateAthlete(requestDTO, requestDTO.getId()), HttpStatus.OK);
     }
 
@@ -46,5 +51,11 @@ public class AthleteController {
     @GetMapping("/by-position")
     public ResponseEntity<List<SportClubResponseDTO>> getAllOrderByPosition(){
         return new ResponseEntity<>(userService.getAllPositionAscending(ATHLETE_CODE), HttpStatus.OK);
+    }
+
+    @PostMapping("top-performing")
+    public ResponseEntity<List<AthleteResponseDTO>> getTopPerformingTeams(@RequestBody GetTopPerformingRequestDTO requestDTO){
+        requestDTO.setUserId(ATHLETE_CODE);
+        return new ResponseEntity<>(userService.getTopPerformingAthletes(requestDTO), HttpStatus.OK);
     }
 }
