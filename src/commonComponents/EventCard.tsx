@@ -1,13 +1,14 @@
 import React from 'react';
 
 export interface IEventCardData {
+    id:number;
     title: string;
     description: string;
     date: string;
   }
   
 
-  const EventCard: React.FC<IEventCardData> = ({ title, description, date }) => {
+  const EventCard: React.FC<IEventCardData> = ({id , title, description, date }) => {
   return (
         <div className="card">
                 <h3 className="card__title">{title}</h3>

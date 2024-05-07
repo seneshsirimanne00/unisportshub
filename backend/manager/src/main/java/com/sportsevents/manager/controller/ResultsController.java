@@ -20,6 +20,7 @@ import static com.sportsevents.manager.Constants.Constants.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("results")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ResultsController {
 
 

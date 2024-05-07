@@ -14,12 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 public class ResultResponseDTO extends CommonDTO {
 
-    private SportClubResponseDTO teamA;
-    private SportClubResponseDTO teamB;
+    private Long teamAId;
+    private Long teamBId;
     private Long teamAScore;
     private Long teamBScore;
     private List<String> achievements;
-    private SportResponseDTO sportType;
-    private EventResponseDTO event;
+    private Long sportId;
+    private Long eventId;
 
 }

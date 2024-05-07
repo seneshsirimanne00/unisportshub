@@ -25,6 +25,7 @@ import static com.sportsevents.manager.Constants.Constants.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("event")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EventController {
 
     private final EventService eventService;
