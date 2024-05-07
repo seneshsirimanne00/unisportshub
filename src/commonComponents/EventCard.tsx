@@ -4,7 +4,7 @@ export interface IEventCardData {
     id:number;
     title: string;
     description: string;
-    date: string;
+    date: Date;
   }
   
 
@@ -14,7 +14,11 @@ export interface IEventCardData {
                 <h3 className="card__title">{title}</h3>
                 <p className="card__content">{description}</p>
                 <div className="card__date">
-                    {date}
+                    {date.toLocaleDateString('en-US', {
+                        month: 'long', 
+                        day: 'numeric', 
+                        year: 'numeric', 
+                    })}
                 </div>
                 <div className="card__arrow">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
