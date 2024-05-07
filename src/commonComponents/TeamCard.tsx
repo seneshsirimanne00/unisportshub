@@ -11,6 +11,7 @@ export interface ITeamCardData {
 
   const TeamCard: React.FC<ITeamCardData> = ({ name, username, winnings , loses , players }) => {
   return (
+    <div className='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
         <div className="team-card">
           <div className="team-card-info">
             <div className="team-card-avatar"></div>
@@ -26,6 +27,7 @@ export interface ITeamCardData {
                 Played = <b>{players}</b>
                 </li>
             </ul>
+        </div>
         </div>
   );
 }

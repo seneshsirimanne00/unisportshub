@@ -247,14 +247,14 @@ function Home() {
 
       <div className="row" style={{maxHeight: "350px" , overflowX: "auto"}}>
 
-        <div className="col">
-        <a href="profile-team.html" style={{textDecoration: "none"}}>
+      
+          
         {teamCard.map((cardData) => (
               <TeamCard key={cardData.name} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.loses} players={cardData.players} />
             ))}
-        </a>
+        
             
-        </div>
+       
       </div>
       
       <hr/>
