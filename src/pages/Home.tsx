@@ -63,6 +63,30 @@ function Home() {
     },
   ]);
 
+  const [athleteCard, setAthleteCard] = useState<ITeamCardData[]>([
+    {
+      name: 'athlete 1 Name',
+      username: 'athlete1username',
+      winnings: 10,
+      loses: 5,
+      players: 5,
+    },
+    {
+      name: 'athlete 2 Name',
+      username: 'athlete2username',
+      winnings: 8,
+      loses: 7,
+      players: 6,
+    },
+    {
+      name: 'athlete 3 Name',
+      username: 'athlete3username',
+      winnings: 12,
+      loses: 2,
+      players: 7,
+    },
+  ]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -253,22 +277,9 @@ function Home() {
 
           <div className="col">
 
-            <div className="team-card">
-              <div className="team-card-info">
-              <div className="team-card-avatar"></div>
-              <div className="team-card-title">Steve Jobs</div>
-              <div className="team-card-subtitle">CEO &amp; Co-Founder</div>
-              </div>
-              <ul className="team-card-social">
-              <li className="team-card-social__item">
-            wins = <b>2</b></li>
-            <li className="team-card-social__item">
-            Losses = <b>5</b></li>
-            <li className="team-card-social__item">
-            Played = <b>8</b>
-            </li>
-            </ul>
-            </div>  
+          {athleteCard.map((cardData) => (
+              <TeamCard key={cardData.name} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.loses} players={cardData.players} />
+            ))}
 
           </div>
         </div>
