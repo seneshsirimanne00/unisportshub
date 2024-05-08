@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../commonComponents/Navbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 import image133 from '../assets/2570336.jpg';
 import image134 from '../assets/3148598.jpg';
@@ -9,6 +11,7 @@ import image135 from '../assets/3164527.jpg';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { getFormattedTime } from '../utils';
 
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import EventCard from '../commonComponents/EventCard';
@@ -17,6 +20,43 @@ import RPerformanceCard from '../commonComponents/RecentPerformanceCard';
 import {IRPerformanceCardData} from '../commonComponents/RecentPerformanceCard';
 import TeamCard, { ITeamCardData } from '../commonComponents/TeamCard';
 import axiosInstance from '../services/AxiosController';
+
+enum ResultType {
+  Athlete = 5 ,
+  Team = 2,
+}
+
+export interface IAthlete {
+  id: number;
+  name: string;
+  userId: number;
+  email: string;
+  username: string;
+  players?: any; 
+  stats?: any; 
+  achievements: string[];
+  logoBase64?: string | null; 
+  basicInfo?: any; 
+  winnings?: any; 
+  losses?: any; 
+}
+
+export interface ITeam {
+  id: number;
+  name: string;
+  userId: number;
+  email: string;
+  username: string;
+  players?: any; 
+  stats?: any; 
+  achievements: string[];
+  logoBase64?: string | null; 
+  basicInfo: string; 
+  winnings: number;
+  losses: number;
+}
+
+
 
 function Home() {
 
@@ -36,54 +76,6 @@ function Home() {
     {
       title: '3 Title',
       description: 'This is a description for event 3.',
-    },
-  ]);
-
-  const [teamCard, setTeamCard] = useState<ITeamCardData[]>([
-    {
-      name: 'Team 1 Name',
-      username: 'team1username',
-      winnings: 10,
-      loses: 5,
-      players: 5,
-    },
-    {
-      name: 'Team 2 Name',
-      username: 'team2username',
-      winnings: 8,
-      loses: 7,
-      players: 6,
-    },
-    {
-      name: 'Team 3 Name',
-      username: 'team3username',
-      winnings: 12,
-      loses: 2,
-      players: 7,
-    },
-  ]);
-
-  const [athleteCard, setAthleteCard] = useState<ITeamCardData[]>([
-    {
-      name: 'athlete 1 Name',
-      username: 'athlete1username',
-      winnings: 10,
-      loses: 5,
-      players: 5,
-    },
-    {
-      name: 'athlete 2 Name',
-      username: 'athlete2username',
-      winnings: 8,
-      loses: 7,
-      players: 6,
-    },
-    {
-      name: 'athlete 3 Name',
-      username: 'athlete3username',
-      winnings: 12,
-      loses: 2,
-      players: 7,
     },
   ]);
 
@@ -113,6 +105,50 @@ function Home() {
   
     fetchData();
   }, []);
+
+  // athletes api
+
+  const [athletes, setAthletes] = useState<IAthlete[]>([]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get('/athlete/by-position');
+      const fetchedAthletes = response.data as IAthlete[]; 
+      setAthletes(fetchedAthletes);
+      console.log("athlete", fetchedAthletes)
+    } catch (error) {
+      console.error('Error fetching athlete data:', error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+  // teams api
+  
+  const [teams, setTeams] = useState<ITeam[]>([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axiosInstance.get('/sports-club/by-position'); 
+          const fetchedTeams = response.data as ITeam[];
+          setTeams(fetchedTeams);
+
+        } catch (error) {
+          console.error('Error fetching team data:', error);
+        }
+      };
+
+      fetchData();
+    }, []);
+
+  // bootstrap modal 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true); 
   
   return (
     <div className='app-container'>
@@ -150,7 +186,7 @@ function Home() {
 
             <button className="button2">View all events</button>
             <br/>
-            {eventData.slice(0, 6).map((cardData) => (
+            {eventData.slice(0, 6).map((cardData) => ( 
               <EventCard key={cardData.id} title={cardData.title} description={cardData.description} date={cardData.date} id={cardData.id} />
             ))}
           </div>
@@ -249,8 +285,8 @@ function Home() {
 
       
           
-        {teamCard.map((cardData) => (
-              <TeamCard key={cardData.name} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.loses} players={cardData.players} />
+        {teams.map((cardData) => (
+              <TeamCard key={cardData.id} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.losses} players={cardData.players} id={cardData.id} />
             ))}
         
             
@@ -266,8 +302,8 @@ function Home() {
 
           <div className="col">
 
-          {athleteCard.map((cardData) => (
-              <TeamCard key={cardData.name} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.loses} players={cardData.players} />
+          {athletes.map((cardData) => (
+              <TeamCard key={cardData.id} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.losses} players={cardData.players} id={cardData.id} />
             ))}
 
           </div>
@@ -407,6 +443,27 @@ function Home() {
 
         <h2>Updates today</h2>
 
+        {/* modal test */}
+        <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+        {/* modal test */}
+
         <div style={{width: "100%" , maxHeight: "40vh", overflowX: "auto"}}>
 
         <div className="update-card">
@@ -471,28 +528,37 @@ function Home() {
 
         </div>
         <div className="col-lg-8">
+          <div className="container" style={{minHeight: "50vh", maxHeight: "65vh", overflowX: "auto"}}>
 
-            <div className="container" style={{minHeight: "50vh", maxHeight: "65vh", overflowX: "auto"}}>
-                <div className="row row-striped">
-                    <div className="col-2 text-right">
-                        <h1 className="display-4"><span className="badge badge-secondary">16</span></h1>
-                        <h2>OCT</h2>
+          {eventData.map((cardData) => (
+                        // <EventCard key={cardData.id} title={cardData.title} description={cardData.description} date={cardData.date} id={cardData.id} />
+            <div className="row row-striped" key={cardData.id}>
+                    <div className="col-2 text-right" >
+                        <h1 className="display-4"><span className="badge badge-secondary">{cardData.date.toLocaleDateString('en-US', {
+                                day: 'numeric', 
+                            })}</span></h1>
+                        <h2>{cardData.date.toLocaleDateString('en-US', {
+                                month: 'long', 
+                            })}</h2>
                     </div>
                     <div className="col-10">
-                        <h3 className="text-uppercase"><strong>Ice Cream Social</strong></h3>
+                        <h3 className="text-uppercase"><strong>{cardData.title}</strong></h3>
                         <ul className="list-inline">
-                            <li className="list-inline-item"><i className="fa fa-calendar-o" aria-hidden="true"></i> Monday</li>
-                            <li className="list-inline-item"><i className="fa fa-clock-o" aria-hidden="true"></i> 12:30 PM - 2:00 PM</li>
-                            <li className="list-inline-item"><i className="fa fa-location-arrow" aria-hidden="true"></i> Cafe</li>
+                            <li className="list-inline-item"><i className="fa fa-calendar-o" aria-hidden="true"></i>{cardData.date.toLocaleDateString('en-US', { weekday: 'short' })}</li>
+                            <li className="list-inline-item"><i className="fa fa-clock-o" aria-hidden="true"></i>{getFormattedTime(cardData.date)}</li>
+                            <li className="list-inline-item"><i className="fa fa-location-arrow" aria-hidden="true">Grounds</i></li>
                         </ul>
-                        <p>Lorem ipsum dolsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>{cardData.description}</p>
                  
                     </div>
                 
-                </div>
-            </div>
-            
+             </div>
+            ))}
+
+          </div>
         </div>
+
+
     </div>
 </div>
 
