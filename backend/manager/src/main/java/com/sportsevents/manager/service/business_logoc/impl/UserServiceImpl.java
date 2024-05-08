@@ -23,11 +23,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public SuccessResponseDTO authenticateUser(LoginRequestDTO requestDTO) {
+    public AuthSuccessResponseDTO authenticateUser(LoginRequestDTO requestDTO) {
         User user = userDataService.getUserByUsername(requestDTO.getUsername());
         if (user != null){
             if (user.getPassword().equals(requestDTO.getPassword())){
-                return new SuccessResponseDTO();
+                AuthSuccessResponseDTO responseDTO = new AuthSuccessResponseDTO();
+                responseDTO.setUserId(user.getUserId());
+                return responseDTO;
             }
         }
         return null;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
 
-    SuccessResponseDTO authenticateUser(LoginRequestDTO requestDTO);
+    AuthSuccessResponseDTO authenticateUser(LoginRequestDTO requestDTO);
 
     StudentResponseDTO saveStudent(StudentRequestDTO requestDTO);
 

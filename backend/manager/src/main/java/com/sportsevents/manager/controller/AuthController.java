@@ -1,6 +1,7 @@
 package com.sportsevents.manager.controller;
 
 import com.sportsevents.manager.DTO.RequestDTO.LoginRequestDTO;
+import com.sportsevents.manager.DTO.ResponseDTO.AuthSuccessResponseDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.SuccessResponseDTO;
 import com.sportsevents.manager.service.business_logoc.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<SuccessResponseDTO> login(@RequestBody LoginRequestDTO requestDTO){
+    public ResponseEntity<AuthSuccessResponseDTO> login(@RequestBody LoginRequestDTO requestDTO){
         return new ResponseEntity<>(userService.authenticateUser(requestDTO), HttpStatus.OK);
     }
 
