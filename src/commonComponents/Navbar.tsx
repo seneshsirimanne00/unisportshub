@@ -9,17 +9,16 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: '/', label: 'Home' },
+  { path: '/home', label: 'Home' },
+  { path: '/profile', label: 'Profile' },
+  { path: '/calender', label: 'Calender' },
   { path: '/sportsCategories', label: 'Sports Categories' },
-  { path: '/news', label: 'News' },
-  { path: '/teamProfiles', label: 'Team Profiles' },
   { path: '/results', label: 'Results' },
-  { path: '/resgistration', label: 'Resgistration' },
 ];
 
 function Navbar() {
   return (
-    <nav className='navbar'>
+    <nav className='navbar-container'>
       <ul className='navbarItems'>
         {navItems.map((item) => (
           <li key={item.path}>

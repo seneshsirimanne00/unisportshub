@@ -1,6 +1,8 @@
 import React from 'react';
+import TeamModal from './TeamModal';
 
 export interface ITeamCardData {
+    id: number;
     name: string;
     username: string;
     winnings:number;
@@ -9,7 +11,7 @@ export interface ITeamCardData {
   }
   
 
-  const TeamCard: React.FC<ITeamCardData> = ({ name, username, winnings , loses , players }) => {
+  const TeamCard: React.FC<ITeamCardData> = ({ id, name, username, winnings , loses , players }) => {
   return (
     <div className='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
         <div className="team-card">
@@ -17,6 +19,7 @@ export interface ITeamCardData {
             <div className="team-card-avatar"></div>
             <div className="team-card-title">{name}</div>
             <div className="team-card-subtitle">{username}</div>
+            <TeamModal id={id} />
           </div>
             <ul className="team-card-social">
                 <li className="team-card-social__item">

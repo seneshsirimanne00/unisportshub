@@ -17,7 +17,7 @@ export interface IEventCardData {
                     {date.toLocaleDateString('en-US', {
                         month: 'long', 
                         day: 'numeric', 
-                        year: 'numeric', 
+                        year: 'numeric',
                     })}
                 </div>
                 <div className="card__arrow">

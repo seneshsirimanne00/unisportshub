@@ -9,6 +9,7 @@ import SportsCategories from './pages/SportsCategories';
 import TeamProfile from './pages/TeamProfile';
 import Results from './pages/Results';
 import Resgistration from './pages/Registration';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
