@@ -68,7 +68,7 @@ export interface ITeamModalData {
                                       <p>{Team?.name}</p>
                                   </div>
                                   <div className="media">
-                                      <label>position</label>
+                                      <label>winnings</label>
                                       <p>{Team?.position}</p>
                                   </div>
                                   {/* <div className="media">

@@ -3,8 +3,10 @@ import React, { createContext, useState, useContext } from 'react';
 interface AuthContextValue {
   isLoggedIn: boolean;
   userId: string | null;
+  id: string | null;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setUserId: React.Dispatch<React.SetStateAction<string | null>>;
+  setId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null);
@@ -25,10 +27,10 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode; value: A
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const [userId, setUserId] = useState<string | null>(null); 
-
+  const [id, setId] = useState<string | null>(null);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userId, setIsLoggedIn, setUserId }}>
+    <AuthContext.Provider value={{ isLoggedIn, userId, id, setIsLoggedIn, setUserId, setId }}>
       {children}
     </AuthContext.Provider>
   );

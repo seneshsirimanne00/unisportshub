@@ -6,7 +6,7 @@ import { AuthContext } from '../AuthContext';
 
 
 const Registration: FC = () => {
-  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
+  const { setIsLoggedIn, setUserId , setId } = useContext(AuthContext);
   const navigate = useNavigate();
   const [err, setErr] = useState(false);
 
@@ -34,6 +34,8 @@ const Registration: FC = () => {
       navigate('/home');
       setIsLoggedIn(true);
       setUserId(response.data.userId);
+      setId(response.data.id);
+      setId
     } else {
       setErr(true);
     }

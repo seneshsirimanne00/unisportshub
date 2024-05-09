@@ -17,8 +17,10 @@ import UserProfile from './pages/UserProfile';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const [userId, setUserId] = useState<string | null>(null); 
+  const [id, setId] = useState<string | null>(null);
+  
   return (
-    <AuthContextProvider value={{ isLoggedIn, userId, setIsLoggedIn, setUserId }}>
+    <AuthContextProvider value={{ isLoggedIn, userId, id, setIsLoggedIn, setUserId , setId }}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Resgistration />} />
