@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
             if (user.getPassword().equals(requestDTO.getPassword())){
                 AuthSuccessResponseDTO responseDTO = new AuthSuccessResponseDTO();
                 responseDTO.setUserId(user.getUserId());
+                responseDTO.setId(user.getId());
                 return responseDTO;
             }
         }
@@ -44,7 +45,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public SportClubResponseDTO saveSportsClub(SportsClubRequestDTO requestDTO) {
         requestDTO.setUserId(SPORTS_CLUB_CODE);
-        return UserMapper.INSTANCE.userEntityToSportClubResDTO(userDataService.saveSportsClub(requestDTO));
+        User user = userDataService.saveSportsClub(requestDTO);
+        SportClubResponseDTO responseDTO = UserMapper.INSTANCE.userEntityToSportClubResDTO(user);
+        userToSportsClubResponseDTO(user, responseDTO);
+        return responseDTO;
     }
 
     @Override
@@ -184,6 +188,7 @@ public class UserServiceImpl implements UserService {
 
     public List<String> stringToList(String strList){
         if (!StringUtils.isBlank(strList)){
+            strList = strList.replace("[", "").replace("]","");
             return Arrays.asList(strList.split(","));
         }
         return null;

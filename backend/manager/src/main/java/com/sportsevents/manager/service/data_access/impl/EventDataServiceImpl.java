@@ -101,7 +101,7 @@ public class EventDataServiceImpl implements EventDataService{
     }
 
     private String convertLongToString(List<Long> longList){
-        if (!longList.isEmpty()){
+        if (longList != null && !(longList.isEmpty())){
             return longList.toString();
         }
         return null;

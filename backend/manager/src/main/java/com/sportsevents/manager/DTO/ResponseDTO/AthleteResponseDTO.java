@@ -16,5 +16,6 @@ public class AthleteResponseDTO extends UserCommonResponseDTO {
 
     private Long position;
     private List<String> achievements;
+    private Long clubId;
 
 }

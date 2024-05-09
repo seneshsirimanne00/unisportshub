@@ -137,6 +137,7 @@ public class EventServiceImpl implements EventService {
 
     public List<String> stringToList(String strList){
         if (!StringUtils.isBlank(strList)){
+            strList = strList.replace("[", "").replace("]","");
             return Arrays.asList(strList.split(","));
         }
         return null;
@@ -144,6 +145,7 @@ public class EventServiceImpl implements EventService {
 
     public List<Long> stringToLong(String strList){
         if (!StringUtils.isBlank(strList)){
+            strList = strList.replace("[", "").replace("]","").replace(" ","");
             return Arrays.stream(strList.split(","))
                     .map(Long::parseLong)
                     .collect(Collectors.toList());

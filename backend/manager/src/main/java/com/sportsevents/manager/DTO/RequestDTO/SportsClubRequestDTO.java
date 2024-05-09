@@ -9,8 +9,6 @@ import java.util.List;
 @Data
 public class SportsClubRequestDTO extends UserCommonRequestDTO {
 
-    List<Long> players;
-    List<Long> results;
     List<String> achievements;
     String logoBase64;
     String basicInfo;

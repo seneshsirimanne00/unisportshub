@@ -12,5 +12,6 @@ public class UserCommonRequestDTO extends CommonDTO {
     private String password;
     private String email;
     private Long userId;
+    private String name;
 
 }

@@ -22,6 +22,7 @@ public class EventRequestDTO extends CommonDTO {
     private Long teamA;
     private Long teamB;
     private Long sportId;
+    private Long clubId;
 
 
 

@@ -11,5 +11,6 @@ public class AthleteRequestDTO extends UserCommonRequestDTO{
 
     private Long position;
     private List<String> achievements;
+    private Long clubId;
 
 }
