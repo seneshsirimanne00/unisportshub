@@ -1,12 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import Navbar from '../commonComponents/Navbar';
 import axiosInstance from '../services/AxiosController';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../AuthContext';
+
 
 const Registration: FC = () => {
+  const { setIsLoggedIn, setUserId } = useContext(AuthContext);
   const navigate = useNavigate();
   const [err, setErr] = useState(false);
-  const[count, setCount] =useState(0);
 
   interface LoginData {
     username: string;
@@ -30,6 +32,8 @@ const Registration: FC = () => {
     console.log('Login', translatedData);
     if (response.data.response === "SUCCESS") {
       navigate('/home');
+      setIsLoggedIn(true);
+      setUserId(response.data.userId);
     } else {
       setErr(true);
     }

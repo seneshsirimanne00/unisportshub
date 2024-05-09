@@ -4,11 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axiosInstance from '../services/AxiosController';
 
-export interface ITeamModalData {
+export interface IAthleteModalData {
     id:number;
    }
 
-   export interface IDetailedTeam {
+   export interface IDetailedAthlete {
     id: number;
     name: string;
     userId: number;
@@ -19,26 +19,27 @@ export interface ITeamModalData {
   }
   
 
-  const TeamModal: React.FC<ITeamModalData> = ({id}) => {
+  const AthleteModal: React.FC<IAthleteModalData> = ({id}) => {
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const [Team, setTeam] = useState<IDetailedTeam | null>(null);
+    const [athlete, setAthlete] = useState<IDetailedAthlete | null>(null);
+
     useEffect(() => {
-        const fetchTeam = async () => {
+        const fetchAthlete = async () => {
           try {
-            const response = await axiosInstance.get(`http://localhost:8080/sport-club-manager-service/sports-club/${id}`); 
-            const fetchedTeam = response.data as IDetailedTeam;
-            setTeam(fetchedTeam);
+            const response = await axiosInstance.get(`http://localhost:8080/sport-club-manager-service/athlete/${id}`); // Replace 4 with the actual ID
+            const fetchedAthlete = response.data as IDetailedAthlete;
+            setAthlete(fetchedAthlete);
           } catch (error) {
-            console.error('Error fetching Team data:', error);
+            console.error('Error fetching athlete data:', error);
           }
         };
       
-        fetchTeam();
+        fetchAthlete();
       }, []);
 
 
@@ -58,8 +59,8 @@ export interface ITeamModalData {
               <div className="row align-items-center flex-row-reverse">
                   <div className="col-lg-6">
                       <div className="about-text go-to">
-                          <h3 className="dark-color">name {Team?.name}</h3>
-                          <h6 className="theme-color lead">{Team?.email}</h6>
+                          <h3 className="dark-color">name {athlete?.name}</h3>
+                          <h6 className="theme-color lead">{athlete?.email}</h6>
                           <p>I <mark>design and develop</mark> services for customers of all sizes, specializing in creating stylish, modern websites, web services and online stores. My passion is to design digital user experiences through the bold interface and meaningful interactions.</p>
                           <div className="row about-list">
                               <div className="col-md-6">
@@ -103,8 +104,7 @@ export interface ITeamModalData {
                   </div>
                   <div className="col-lg-6">
                       <div className="about-avatar">
-                      <h1>Team modal</h1>
-                          {/* <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt=""> */}
+                          <h1>athlete modal</h1>
                       </div>
                   </div>
               </div>
@@ -149,4 +149,4 @@ export interface ITeamModalData {
   );
 }
 
-export default TeamModal;
+export default AthleteModal;

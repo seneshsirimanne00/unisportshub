@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../commonComponents/Navbar';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Button from 'react-bootstrap/Button';
@@ -20,11 +20,15 @@ import RPerformanceCard from '../commonComponents/RecentPerformanceCard';
 import {IRPerformanceCardData} from '../commonComponents/RecentPerformanceCard';
 import TeamCard, { ITeamCardData } from '../commonComponents/TeamCard';
 import axiosInstance from '../services/AxiosController';
+import { AuthContext } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-enum ResultType {
-  Athlete = 5 ,
-  Team = 2,
-}
+
+// CRICKET = 1L;
+//     public static final Long SPORTS_CLUB_CODE = 2L;
+//     public static final Long SPORTS_COUNCIL_CODE = 3L;
+//     public static final Long STUDENT_CODE = 4L;
+//     public static final Long ATHLETE_CODE = 5L;
 
 export interface IAthlete {
   id: number;
@@ -78,6 +82,16 @@ function Home() {
       description: 'This is a description for event 3.',
     },
   ]);
+
+  const navigate = useNavigate();
+  const { isLoggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log('authcontext',isLoggedIn,);
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -206,7 +220,7 @@ useEffect(() => {
 
 
 
-      <div className="container" style={{ padding: "40px 0", backgroundColor: "#282828" }}>
+      <div id="sportscategories-section" className="container" style={{ padding: "40px 0", backgroundColor: "#282828" }}>
       
    
           
@@ -286,7 +300,7 @@ useEffect(() => {
       
           
         {teams.map((cardData) => (
-              <TeamCard key={cardData.id} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.losses} players={cardData.players} id={cardData.id} />
+              <TeamCard teamcard={true} key={cardData.id} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.losses} players={cardData.players} id={cardData.id} />
             ))}
         
             
@@ -303,7 +317,7 @@ useEffect(() => {
           <div className="col">
 
           {athletes.map((cardData) => (
-              <TeamCard key={cardData.id} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.losses} players={cardData.players} id={cardData.id} />
+              <TeamCard teamcard={false} key={cardData.id} name={cardData.name} username={cardData.username} winnings={cardData.winnings} loses={cardData.losses} players={cardData.players} id={cardData.id} />
             ))}
 
           </div>
