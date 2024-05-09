@@ -117,7 +117,7 @@ public class UserDataServiceImpl implements UserDataService {
 
     @Override
     public List<User> getTopPerformingAthletes(GetTopPerformingRequestDTO getTopPerformingRequestDTO) {
-        return userRepository.findAllByUserIdAndPositionBetween(getTopPerformingRequestDTO.getUserId(), getTopPerformingRequestDTO.getStart(), getTopPerformingRequestDTO.getEnd());
+        return userRepository.findAllByUserIdAndPositionBetween(ATHLETE_CODE, getTopPerformingRequestDTO.getStart(), getTopPerformingRequestDTO.getEnd());
     }
 
     @Override
