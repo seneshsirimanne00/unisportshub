@@ -40,6 +40,8 @@ function Results() {
     };
   
     fetchData();
+
+    
   }, []);
 
   return (
