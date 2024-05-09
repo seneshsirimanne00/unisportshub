@@ -23,13 +23,6 @@ import axiosInstance from '../services/AxiosController';
 import { AuthContext } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-
-// CRICKET = 1L;
-//     public static final Long SPORTS_CLUB_CODE = 2L;
-//     public static final Long SPORTS_COUNCIL_CODE = 3L;
-//     public static final Long STUDENT_CODE = 4L;
-//     public static final Long ATHLETE_CODE = 5L;
-
 export interface IAthlete {
   id: number;
   name: string;
@@ -157,12 +150,6 @@ useEffect(() => {
 
       fetchData();
     }, []);
-
-  // bootstrap modal 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true); 
   
   return (
     <div className='app-container'>
@@ -456,28 +443,8 @@ useEffect(() => {
     <div className="col-lg-4 col-md-4 col-sm-12">
 
         <h2>Updates today</h2>
-
-        {/* modal test */}
-        <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-        {/* modal test */}
-
+        
+        <button><a href='/blogs'> go to blogs</a></button>
         <div style={{width: "100%" , maxHeight: "40vh", overflowX: "auto"}}>
 
         <div className="update-card">

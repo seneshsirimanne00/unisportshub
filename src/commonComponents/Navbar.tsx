@@ -30,9 +30,11 @@ function Navbar() {
         <li>
           {isLoggedIn && <Link to='/results'>Results</Link>}
         </li>
+        {userId === 2 || userId === 3 &&
         <li>
-          {userId === 2 && <Link to='/admin'>Admin</Link>}
+          <Link to='/admin'>Admin</Link>
         </li>
+        }
       </ul>
     </nav>
   );

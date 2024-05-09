@@ -25,8 +25,20 @@ function AdminPage() {
     <div className='app-container'>
         <Navbar />
         <div>
-          <h1>logged in as a {userId === UserType.Team  &&  "team" } { userId === UserType.Council  &&  "Council" } </h1>
-            <p>put body here</p>
+          <h6>logged in as a {userId === UserType.Team  &&  "team" } { userId === UserType.Council  &&  "Council" } </h6>
+
+          {userId === UserType.Team && 
+          <>
+          <p>create an event</p>
+          </>
+          }
+
+          {userId === UserType.Council && 
+          <>
+          <p>create a Team</p>
+          </>
+          }
+        
 
         </div>
 
