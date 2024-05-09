@@ -21,6 +21,8 @@ public class Results {
     private long id;
     private Long teamAScore;
     private Long teamBScore;
+    private String teamAName;
+    private String teamBName;
 //    @ManyToOne
 //    @JoinColumn(name = "team_a_id")
     private Long teamAId;

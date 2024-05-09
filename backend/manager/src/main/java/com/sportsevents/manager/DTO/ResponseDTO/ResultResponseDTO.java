@@ -18,6 +18,8 @@ public class ResultResponseDTO extends CommonDTO {
     private Long teamBId;
     private Long teamAScore;
     private Long teamBScore;
+    private String teamAName;
+    private String teamBName;
     private List<String> achievements;
     private Long sportId;
     private Long eventId;
