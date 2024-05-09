@@ -9,5 +9,6 @@ public class AuthSuccessResponseDTO {
 
     private final String response = "SUCCESS";
     private Long userId;
+    private Long id;
 
 }

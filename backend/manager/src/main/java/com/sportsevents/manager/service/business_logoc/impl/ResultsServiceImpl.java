@@ -79,6 +79,7 @@ public class ResultsServiceImpl implements ResultsService {
 
     public List<String> stringToList(String strList){
         if (!StringUtils.isBlank(strList)){
+            strList = strList.replace("[", "").replace("]","");
             return Arrays.asList(strList.split(","));
         }
         return null;

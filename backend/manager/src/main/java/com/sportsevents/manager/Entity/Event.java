@@ -3,11 +3,9 @@ package com.sportsevents.manager.Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 //@EqualsAndHashCode(callSuper = true)
 @Data
@@ -32,5 +30,6 @@ public class Event{
     private Long sportId; //todo: get by sport id
     private Boolean isFinished; //todo: get by is finished || finish and event (also need to create result for event)
     private String players;
+    private Long clubId;
     //todo: pre event post event
 }

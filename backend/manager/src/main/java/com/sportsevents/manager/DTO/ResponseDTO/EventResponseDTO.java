@@ -1,7 +1,6 @@
 package com.sportsevents.manager.DTO.ResponseDTO;
 
 import com.sportsevents.manager.DTO.CommonDTO;
-import com.sportsevents.manager.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +23,7 @@ public class EventResponseDTO extends CommonDTO {
     private List<String> registrationProcedure;
     private LocalDateTime eventDate;
     private List<Long> playersIdList;
-    private User clubId;
+    private Long clubId;
     private Long sportId;
     private Long teamA;
     private Long teamB;
