@@ -11,6 +11,8 @@ export interface IResults {
   teamBId: number;
   teamBScore: number;
   achievements?: string[];
+  teamAName: string;
+  teamBName: string;
 }
 
 function Results() {
@@ -23,13 +25,18 @@ function Results() {
         const response = await axiosInstance.get('/results');
         const translatedData = response.data; 
         console.log("results",translatedData);
-        const formattedResults = translatedData.map((result: { id: any; eventId: any; sportId: any; teamAId: any; teamAScore: any; teamBId: any; teamBScore: any; achievements: any; }) => ({
+        const formattedResults = translatedData.map((result: {
+          teamAName: any;
+          teamBName: any; id: any; eventId: any; sportId: any; teamAId: any; teamAScore: any; teamBId: any; teamBScore: any; achievements: any; 
+}) => ({
           id: result.id,
           eventId: result.eventId,
           sportId: result.sportId,
           teamAId: result.teamAId,
           teamAScore: result.teamAScore,
           teamBId: result.teamBId,
+          teamAName: result.teamAName,
+          teamBName: result.teamBName,
           teamBScore: result.teamBScore,
           achievements: result.achievements || [], 
         }));
@@ -56,14 +63,18 @@ function Results() {
             <tbody>
               <tr>
                 <th>Event No</th>
+                <th>Team A Name</th>
                 <th>Team A Score</th>
+                <th>Team B Name</th>
                 <th>Team B Score</th>
               </tr>
 
               {results.map((result) => (
                 <tr>
                   <td>{result.eventId}</td>
+                  <td>{result.teamAName}</td>
                   <td>{result.teamAScore}</td>
+                  <td>{result.teamBName}</td>
                   <td>{result.teamBScore}</td>
                 </tr>
               ))}

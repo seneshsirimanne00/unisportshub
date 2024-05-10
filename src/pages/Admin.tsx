@@ -24,6 +24,20 @@ interface Team {
   losses: number;
 }
 
+interface Teams {
+  id :number;
+  username: string;
+  password: string;
+  name: string;
+  email: string;
+  userId: number;
+  achievements: string[];
+  logoBase64?: string; 
+  basicInfo: string;
+  winnings: number;
+  losses: number;
+}
+
 interface Event {
   eventId?: number; 
   name: string;
@@ -42,6 +56,24 @@ function AdminPage() {
 
     const navigate = useNavigate();
     const { isLoggedIn , userId, id } = useContext(AuthContext);
+
+    const [teams, setTeams] = useState<Teams[]>([]); // State to store teams array
+
+    useEffect(() => {
+      const fetchTeams = async () => {
+        try {
+          const response = await axiosInstance.get('/sports-club/by-position'); 
+          setTeams(response.data);
+          console.log('teams',response.data);
+        } catch (error) {
+          console.error('Error fetching teams:', error);
+          // Handle errors (e.g., display error message to user)
+        }
+      };
+
+      fetchTeams();
+    }, []); // Run the effect only once on component mount
+
 
   
     useEffect(() => {
@@ -113,6 +145,14 @@ function AdminPage() {
     const [eventSuccess, setEventSuccess] = useState(false);
     const [eventError, setEventError] = useState(false);
 
+    const [selectedTeamIdA, setSelectedTeamIdA] = useState<number>(0);
+    const [selectedTeamIdB, setSelectedTeamIdB] = useState<number>(0);
+
+    useEffect(() => {
+      console.log('selectedTeamIdA',selectedTeamIdA );
+      console.log('selectedTeamIdB',selectedTeamIdB );
+    }, [selectedTeamIdA,selectedTeamIdB]);
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = event.target;
       setNevent({ ...nevent, [name]: Number.isNaN(parseInt(value)) ? value : parseInt(value) });
@@ -127,8 +167,10 @@ function AdminPage() {
   
       try {
         //const formattedDate = new Date(event.target.eventDate.value).toISOString(); // Ensure proper date format
-        console.log('create event',nevent);
-        const response = await axiosInstance.post('/event', nevent, {
+        const updatedNevent = { ...nevent, teamA: selectedTeamIdA, teamB: selectedTeamIdB }; // Update teamA and teamB
+        console.log('create event', updatedNevent);
+
+        const response = await axiosInstance.post('/event', updatedNevent, {
           headers: {
             'userId': 3, 
           },
@@ -174,13 +216,42 @@ function AdminPage() {
             <input type="datetime-local" id="eventDate" name="eventDate" value={nevent.eventDate} onChange={handleDateChange} required />
 
             <label htmlFor="teamA">Team A ID:</label>
-            <input type="number" id="teamA" name="teamA" value={nevent.teamA} onChange={handleChange} required />
+            {/* <input type="number" id="teamA" name="teamA" value={nevent.teamA} onChange={handleChange} required /> */}
+            <select
+            value={selectedTeamIdA}
+            onChange={(event) => setSelectedTeamIdA(parseInt(event.target.value, 10))}
+            id="teamA"
+            name="teamA" // Set the name attribute for form submission
+            required
+          >
+            <option value="">Select Team</option>
+            {teams.map((team) => (
+              <option key={team.id} value={team.id}>
+                {team.name}
+              </option>
+            ))}
+          </select>
 
             <label htmlFor="teamB">Team B ID:</label>
-            <input type="number" id="teamB" name="teamB" value={nevent.teamB} onChange={handleChange} required />
+            {/* <input type="number" id="teamB" name="teamB" value={nevent.teamB} onChange={handleChange} required /> */}
+            <select
+            value={selectedTeamIdB}
+            onChange={(event) => setSelectedTeamIdB(parseInt(event.target.value, 10))}
+            id="teamB"
+            name="teamB" // Set the name attribute for form submission
+            required
+          >
+            <option value="">Select Team</option>
+            {teams.map((team) => (
+              <option key={team.id} value={team.id}>
+                {team.name}
+              </option>
+            ))}
+          </select>
 
-            <label htmlFor="sportId">Sport ID:</label>
-            <input type="number" id="sportId" name="sportId" value={nevent.sportId} onChange={handleChange} required />
+            {/* <label htmlFor="sportId">Sport ID:</label>
+            <input type="number" id="sportId" name="sportId" value={nevent.sportId} onChange={handleChange} required /> */}
+            
 
             <button type="submit">Create</button>
             {eventSuccess && <h6 style={{color:'green'}}>Event created successfully!</h6>}
