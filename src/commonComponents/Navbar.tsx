@@ -10,31 +10,25 @@ interface NavItem {
 }
 
 function Navbar() {
-  const { isLoggedIn , userId } = useContext(AuthContext);
   
   return (
     <nav className='navbar-container'>
       <ul className='navbarItems'>
         <li>
-          {isLoggedIn && <Link to='/home'>Home</Link>}
+          <Link to='/home'>Home</Link>
         </li>
         <li>
-          {isLoggedIn && <Link to='/profile'>Profile</Link>}
+          <Link to='/profile'>Profile</Link>
         </li>
         <li>
-          {isLoggedIn && <Link to='/calender'>Calender</Link>}
+          <Link to='/results'>Results</Link>
         </li>
         <li>
-          {isLoggedIn && <Link to='/home#sportscategories-section'>Sports Categories</Link>}
+          <Link to='/blogs'>Blogs</Link>
         </li>
-        <li>
-          {isLoggedIn && <Link to='/results'>Results</Link>}
-        </li>
-        {userId === 2 || userId === 3 &&
         <li>
           <Link to='/admin'>Admin</Link>
         </li>
-        }
       </ul>
     </nav>
   );

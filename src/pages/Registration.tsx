@@ -4,7 +4,6 @@ import axiosInstance from '../services/AxiosController';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
 
-
 const Registration: FC = () => {
   const { setIsLoggedIn, setUserId , setId } = useContext(AuthContext);
   const navigate = useNavigate();
