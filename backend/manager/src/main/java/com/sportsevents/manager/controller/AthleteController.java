@@ -2,13 +2,10 @@ package com.sportsevents.manager.controller;
 
 import com.sportsevents.manager.DTO.RequestDTO.AthleteRequestDTO;
 import com.sportsevents.manager.DTO.RequestDTO.GetTopPerformingRequestDTO;
-import com.sportsevents.manager.DTO.RequestDTO.SportsClubRequestDTO;
 import com.sportsevents.manager.DTO.ResponseDTO.AthleteResponseDTO;
-import com.sportsevents.manager.DTO.ResponseDTO.SportClubResponseDTO;
 import com.sportsevents.manager.Helper.AccessManagements;
 import com.sportsevents.manager.service.business_logoc.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,8 +47,8 @@ public class AthleteController {
     }
 
     @GetMapping("/by-position")
-    public ResponseEntity<List<SportClubResponseDTO>> getAllOrderByPosition(){
-        return new ResponseEntity<>(userService.getAllPositionAscending(ATHLETE_CODE), HttpStatus.OK);
+    public ResponseEntity<List<AthleteResponseDTO>> getAllOrderByPosition(){
+        return new ResponseEntity<>(userService.getAllAthletePositionAscending(ATHLETE_CODE), HttpStatus.OK);
     }
 
     @PostMapping("top-performing")

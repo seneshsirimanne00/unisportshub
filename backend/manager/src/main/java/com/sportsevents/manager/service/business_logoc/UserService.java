@@ -46,4 +46,6 @@ public interface UserService {
 
     List<SportClubResponseDTO> getAllPositionAscending(Long id);
 
+    List<AthleteResponseDTO> getAllAthletePositionAscending(Long id);
+
 }

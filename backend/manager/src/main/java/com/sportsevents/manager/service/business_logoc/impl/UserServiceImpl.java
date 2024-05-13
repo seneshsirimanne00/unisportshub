@@ -185,6 +185,18 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public List<AthleteResponseDTO> getAllAthletePositionAscending(Long id) {
+        List<User> users = userDataService.getAllClubsPositionAscending(id);
+        if (!users.isEmpty()){
+            List<AthleteResponseDTO> athleteResponseDTOS = users.stream().map(UserMapper.INSTANCE::userEntityToAthleteResDTO).toList();
+            userListToAthleteResponseDTOList(users, athleteResponseDTOS);
+            return athleteResponseDTOS;
+        }
+        return null;
+    }
+
+
 
     public List<String> stringToList(String strList){
         if (!StringUtils.isBlank(strList)){
